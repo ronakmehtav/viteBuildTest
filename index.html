@@ -5,9 +5,60 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+    <style>
+      code{
+        display: block;
+        white-space: pre-wrap;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <h1>This is a dummy website</h1>
+    <p>For to get the code blocks you ll need to deploy.</p>
+    <h2>Github pages</h2>
+    <blockquote>
+      This is the video might get outdated but here it is anyway
+      <a href="https://www.youtube.com/watch?v=yo2bMGnIKE8">
+        Video on how to deploy vite</a
+      >
+      you will have to check the
+      <a href="https://vitejs.dev/guide/">vite docs</a>
+    </blockquote>
+    <h3>Steps:</h3>
+    <ol>
+      <li>You have to init the project on Github and push the code.</li>
+      <li>if vite config is not present create vite config with the file name <span><em>vite.config.js</em></span> and put this code inside.
+      
+      <code >
+        import { defineConfig } from 'vite';
+        export default defineConfig(({ command }) => {
+          if (command === 'build') {
+            return {
+              base: '/${repoName}/',
+            };
+          } else {
+            return {
+              base: '/',
+            };
+          }
+        });
+      </code>
+      So as to pass the base for deployment which you ll need cause else the path will start from the domain itself and not from you repo as github wants for content github urls are <em>https://{Username}-github.io/{repoName}</em>.
+    </li>
+    <li>run <code>pnpm run build</code> pnpm is a package manager you can use your package manager for example <span><em>npm</em></span>,etc .</li>
+    <li>This should generate the <span><em>dist</em></span> folder in the root.</li>
+    <li>run <code>git add dist -f</code> the .gitignore file ignores the dist folder by default and commit the change by running <code >git commit -m "adding the dist"</code>.</li>
+    <li>run <code>git subtree push --prefix dist origin gh-pages</code> we are create gh-pages branch for our page to show.</li>
+    <li>if you modify the code and want to push the change you ll have to run all the above commands. </li>
+    <li>If you run into the <output><em>error: failed to push some refs to "..."</em></output> I dont better way then to just delete the branch of gh-pages by running 
+      <code>
+        git branch -D local_branch_name
+        git push remote_name -d remote_branch_name
+      </code>
+      if you find a better way to this raise a pr.
+    </li>
+    </ol>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

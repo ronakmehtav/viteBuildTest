@@ -1,5 +1,13 @@
-const { defineConfig } = require('vite');
+import { defineConfig } from 'vite';
 
-export default defineConfig({
-  base: '/viteTestBuild/',
+export default defineConfig(({ command }) => {
+  if (command === 'build') {
+    return {
+      base: '/viteBuildTest/',
+    };
+  } else {
+    return {
+      base: '/',
+    };
+  }
 });
