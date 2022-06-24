@@ -6,11 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
     <style>
-      code{
+      .flow > * + * {
+        margin-block-start: var(--flow-spacer, 1rem);
+      }
+      .code-block {
+        background-color: lightgrey;
+        padding: 0.9em;
+        width: fit-content;
+        border-radius: 0.5em;
+        margin-block-start: 1em;
+      }
+      .code-block > * + * {
+        margin-block-start: 0.8em;
+      }
+      .copy-button {
         display: block;
+        margin-inline-start: auto;
+      }
+      code {
+        text-align: left;
+        display: block;
+      }
+      code > span {
+        display: block;
+      }
+      pre {
         white-space: pre-wrap;
+        text-align: left;
+        word-spacing: normal;
+        word-break: normal;
+        word-wrap: normal;
+        tab-size: 2;
+        hyphens: none;
       }
     </style>
+    <script>
+      document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('copy-button')) {
+          const codeText = e.target.parentNode.lastElementChild.innerText;
+          navigator.clipboard.writeText(codeText);
+        }
+      });
+    </script>
   </head>
   <body>
     <h1>This is a dummy website</h1>
@@ -25,38 +62,84 @@
       <a href="https://vitejs.dev/guide/">vite docs</a>
     </blockquote>
     <h3>Steps:</h3>
-    <ol>
+    <ol class="flow">
       <li>You have to init the project on Github and push the code.</li>
-      <li>if vite config is not present create vite config with the file name <span><em>vite.config.js</em></span> and put this code inside.
-      
-      <code >
-        import { defineConfig } from 'vite';
-        export default defineConfig(({ command }) => {
-          if (command === 'build') {
-            return {
-              base: '/${repoName}/',
-            };
-          } else {
-            return {
-              base: '/',
-            };
-          }
-        });
-      </code>
-      So as to pass the base for deployment which you ll need cause else the path will start from the domain itself and not from you repo as github wants for content github urls are <em>https://{Username}-github.io/{repoName}</em>.
-    </li>
-    <li>run <code>pnpm run build</code> pnpm is a package manager you can use your package manager for example <span><em>npm</em></span>,etc .</li>
-    <li>This should generate the <span><em>dist</em></span> folder in the root.</li>
-    <li>run <code>git add dist -f</code> the .gitignore file ignores the dist folder by default and commit the change by running <code >git commit -m "adding the dist"</code>.</li>
-    <li>run <code>git subtree push --prefix dist origin gh-pages</code> we are create gh-pages branch for our page to show.</li>
-    <li>if you modify the code and want to push the change you ll have to run all the above commands. </li>
-    <li>If you run into the <output><em>error: failed to push some refs to "..."</em></output> I dont better way then to just delete the branch of gh-pages by running 
-      <code>
-        git branch -D local_branch_name
-        git push remote_name -d remote_branch_name
-      </code>
-      if you find a better way to this raise a pr.
-    </li>
+      <li>
+        If vite config is not present create vite config with the file name
+        <mark><em>vite.config.js</em></mark> and put this code inside. So as to
+        pass the base for deployment which you ll need cause else the path will
+        start from the domain itself and not from you repo as github wants for
+        content github urls are
+        <em>https://{Username}-github.io/{repoName}</em>.
+        <!-- prettier-ignore -->
+        <div class="code-block">
+          <button type="button" class="copy-button">copy</button>
+            <code>
+            <pre>
+            <span>import { defineConfig } from 'vite';</span>
+            <span>export default defineConfig(({ command }) => {</span>
+              <span>if (command === 'build') {</span>
+                <span>return {</span>
+                <span>base: '/${repoName}/',</span>
+                <span>};}</span>
+              <span>else {</span>
+                <span>return {</span>
+                <span>base: '/',</span>
+              <span>};</span>
+            <span>}</span>
+            <span>});</span>
+            </pre>
+            </code>
+        </div>
+      </li>
+      <li>
+        Pnpm is a package manager you can use your package manager for example
+        <span><em>npm</em></span
+        >,etc .
+        <div class="code-block">
+          <button type="button" class="copy-button">copy</button>
+          <code language="node"><span>pnpm run build</span></code>
+        </div>
+      </li>
+      <li>
+        This should generate the <span><em>dist</em></span> folder in the root.
+      </li>
+      <li>
+        The .gitignore file ignores the dist folder by default and commit the
+        change by running
+        <div class="code-block">
+          <button type="button" class="copy-button">copy</button>
+          <code>
+            <span>git add dist -f && git commit -m "adding the dist"</span>
+          </code>
+        </div>
+      </li>
+      <li>
+        We are creating gh-pages branch for our page to show.
+        <div class="code-block">
+          <button type="button" class="copy-button">copy</button>
+          <code
+            ><span>git subtree push --prefix dist origin gh-pages</span></code
+          >
+        </div>
+      </li>
+      <li>
+        if you modify the code and want to push the change you ll have to run
+        all the above commands.
+      </li>
+      <li>
+        If you run into the
+        <output><em>error: failed to push some refs to "..."</em></output> I
+        dont better way then to just delete the branch of gh-pages by running
+        if you find a better way to this raise a pr.
+        <div class="code-block">
+          <button type="button" class="copy-button">copy</button>
+          <code>
+            <span>git branch -D local_branch_name </span>
+            <span>git push remote_name -d remote_branch_name</span>
+          </code>
+        </div>
+      </li>
     </ol>
   </body>
 </html>
